@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/AuthenticationException.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/ContactoDTO.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/DomicilioDTO.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/EmpresaDTO.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/MSRFException.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/PerfilDTO.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/RepresentanteDTO.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/ResponseDTO.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/SistemaDTO.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/UsuarioWS.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/UsuarioWSImplService.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/UsuarioWSImplServiceLocator.java=UTF-8
+encoding//src/mx/org/infonavit/msrf/patron/web/ws/UsuarioWSImplServiceSoapBindingStub.java=UTF-8

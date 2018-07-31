@@ -1,0 +1,4 @@
+What is a Model View Controller architecture?
+The model (DAO) consists of application data and business rules, and the controller (Servlet) acts as an interface between views and model. It mediates input, converting it to commands for the model or view. A view (JSP) can be any output representation of data, such as a chart or a diagram, generally HTML or JSP page.
+
+Here DAO is the Data Access Object – This part concentrates on business logic and database server connections and operations.
