@@ -26,7 +26,7 @@ public class BuscaUsuarioServlet extends HttpServlet {
 			throws ServletException, IOException {
 //		HttpSession session = request.getSession(true);		
 //		String usuario = (String) session.getAttribute("userName");
-//		System.out.println(usuario);
+//		System.out.println(usuario); 
 //		UsuarioEmpresarial userEMP = new UsuarioEmpresarial();
 		if (validaPeticion(request)) {
 			String nrp = request.getParameter("userNRP");
@@ -34,7 +34,7 @@ public class BuscaUsuarioServlet extends HttpServlet {
 			//Inicializamos servicio
 			ResponseDTO respuesta = new ResponseDTO();
 			UsuarioWSProxy con = new UsuarioWSProxy();
-			con.setEndpoint("http://10.90.1.152/msrf-patron/services/usuario");
+			con.setEndpoint("http://10.90.0.155:9081/msrf-patron/services/usuario");
 			UsuarioWS usuariosWebService = con.getUsuarioWS();
 			respuesta = usuariosWebService.validarContacto(nrp.toUpperCase(), correo);
 			if ("02".equals(respuesta.getResponseCode()) || "04".equals(respuesta.getResponseCode())) {

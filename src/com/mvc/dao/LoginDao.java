@@ -20,6 +20,9 @@ public class LoginDao {
 		String passwordDB = "";
 		try	{
 			con = DBConnection.createConnection(); //establishing connection
+			if( null== con){//Quiere decir que la base esta abajo
+				return "Actualmente hay problemas con la base de datos";
+			}
 			statement = con.createStatement(); //Statement is used to write queries. Read more about it.
 			resultSet = statement.executeQuery("select user,pass from usuarioslogin"); //Here table name is users and userName,password are columns. fetching all the records and storing in a resultSet.
 			while(resultSet.next()) // Until next row is present otherwise it return false

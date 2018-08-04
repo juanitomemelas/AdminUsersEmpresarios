@@ -36,8 +36,8 @@
 	}%>
       <ul class="nav navbar-nav">
         <li <%=activ01%> ><a href="/AdminUsersEmpresarios">Home</a></li>
-        <li <%=activ03%>><a href="./ValidaUsuariosServlet">Validar usuarios</a></li>
-        <li <%=activ02%>><a href="./AccionesUsuario">Acciones</a></li>
+        <li <%=activ03%>><a href="./ValidaUsuariosServlet">Validar Usuarios</a></li>
+        <li <%=activ02%>><a href="./AccionesUsuario">Registrar Usuario</a></li>
         <li <%=activ04%>><a href="#">Contact</a></li>
       </ul>
       </c:if>
