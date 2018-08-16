@@ -22,7 +22,7 @@ public class UsuarioWSImplServiceLocator extends org.apache.axis.client.Service 
     }
 
     // Use to get a proxy class for UsuarioWSImplPort
-    private java.lang.String UsuarioWSImplPort_address = "http://10.90.0.155:9081/msrf-patron/services/usuario";
+    private java.lang.String UsuarioWSImplPort_address = "http://10.90.1.152/msrf-patron/services/usuario";
 
     public java.lang.String getUsuarioWSImplPortAddress() {
         return UsuarioWSImplPort_address;
