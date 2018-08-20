@@ -23,25 +23,32 @@ function acciones(accion,elemento){
 	switch (accion){
 	case 1:
 		$('#tituloFormaModal').text('Cambiar contraseña');
-		creaForma(accion);
-		$('#modalBotonEnviar').off("click");
-		$('#modalBotonEnviar').click(function(){ cambiaContrasenia($('#'+elemento).data('mail')); });
+		creaForma(accion,elemento);
+//		$('#btnBuscar').click(function(){$(this).html('<i class=\"fa fa-spinner fa-spin\"></i> Cargando');
+		$('#modalBotonEnviar').html("Salvar Cambios").off("click").click(
+				function(){
+					if($('#contrasenia').val()==$('#contraseniaUno').val()){
+					$(this).html('<i class=\"fa fa-spinner fa-spin\"></i> Espere'); cambiaContrasenia($('#'+elemento).data('mail')); 
+				}else{
+					
+				}
+				});
 		break;
 	case 2:
 		$('#tituloFormaModal').text('Renvio de Contraseña');
-		creaForma(accion);
+		creaForma(accion,elemento);
 		break;
 	case 3:
 		$('#tituloFormaModal').text('XXXXXXXXXXXXXXXXXXXXXX');
-		creaForma(accion);
+		creaForma(accion,elemento);
 		break;
 	case 4:
 		$('#tituloFormaModal').text('Activar usuario');
-		creaForma(accion);
+		creaForma(accion,elemento);
 		break;
 	default:
 		$('#tituloFormaModal').text('Accion sin Definir');
-		creaForma(accion);
+		creaForma(accion,elemento);
 	}
 	console.log($('#'+elemento).data('nrp'));
 	console.log($('#'+elemento).data('mail'));
@@ -49,7 +56,7 @@ function acciones(accion,elemento){
 	//$(this).data("id", "321") para asgnar data internamente
 }
 
-function creaForma(cual){	
+function creaForma(cual, elemento){	
 	var form = $("<form/>", 
             { name:'formaAccionesUsuario',
 			  id:'formaAccionesUsuario'
@@ -57,23 +64,29 @@ function creaForma(cual){
        );
 	switch (cual){
 	case 1:
-		form.append($("<div>",{class:"container"}).append($("<div>",{class:"row"}).append($("<div>",{class:"col"}).append("<p>ingrese el nuevo password para cambiar</p>"))));
-	form.append( 
-	$("<input>", 
-	    { type:'text', 
-	      placeholder:'Password', 
-	      name:'contrasenia', 
-	      style:'width:65%' }
-	)
-	);
-	form.append( 
-	$("<input>", 
-	     { type:'submit', 
-	       value:'Search', 
-	       style:'width:30%' }
-	  )
-	);
-
+	//	form.append($("<div>",{class:"container"}).append($("<div>",{class:"row"}).append($("<div>",{class:"col"}).append("<p>Cambio de Password</p>"))));
+		form.append($("<div>",{class:"form-group"}));
+		form.append('<label for="contrasenia">Ingrese la contraseña a cambiar</label>');
+		form.append( 
+				$("<input>", 
+						{ type:'password', 
+					name:'contrasenia', 
+					id:'contrasenia',
+					class:"form-control"}
+				)
+		);
+		
+		form.append('<label for="contraseniaUno">Vuelva a ingresar la contraseña</label>');
+		form.append( 
+				$("<input>", 
+						{ type:'password',  
+					name:'contraseniaUno', 
+					id:'contraseniaUno',
+					class:"form-control"}
+				)
+		);
+		
+		form.append($("<input>",{type:"hidden",value:$("#"+elemento).data("nrp"),name:"nrp"})),form.append($("<input>",{type:"hidden",name:"mail",value:$("#"+elemento).data("mail")}));
 		break;
 	case 2:
 		
@@ -91,12 +104,14 @@ function creaForma(cual){
 }
 
 function cambiaContrasenia(correo){
-	console.log("el valor del cambia contrasenia: "+correo);
-	console.log("forma serializada "+ $("#formaAccionesUsuario").serialize());
 	$.post('./OperacionesUsuario',
-			$("#formaAccionesUsuario").serialize(),
+	$("#formaAccionesUsuario").serialize(),
       function(data,status){
 	  console.log(data);
-      });
+	  $("#modalContenedorForma").empty().append($("<div>",{class:"container"}).append($("<div>",{class:"row"}).append($("<div>",{class:"col"}).append("<p>Cambio de Contraseña exitoso</p>"))));
+	  $('#modalBotonEnviar').off().html('Cerrar').click(function(){$('#formaModal').modal('hide');});
+		
+ 
+	});
 	
 }

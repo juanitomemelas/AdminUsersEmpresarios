@@ -1,15 +1,20 @@
 package com.mvc.controller;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mx.org.infonavit.msrf.patron.web.ws.ContactoDTO;
+import com.google.gson.Gson;
+import com.mvc.util.UtilPropiedades;
+import com.mvc.util.Utilidades;
+
+import mx.org.infonavit.msrf.patron.web.ws.AccesoDTO;
+import mx.org.infonavit.msrf.patron.web.ws.ControlWSPortProxy;
 import mx.org.infonavit.msrf.patron.web.ws.ResponseDTO;
-import mx.org.infonavit.msrf.patron.web.ws.UsuarioWS;
 import mx.org.infonavit.msrf.patron.web.ws.UsuarioWSProxy;
 
 public class OperacionesUsuarioServlet extends HttpServlet {
@@ -19,47 +24,48 @@ public class OperacionesUsuarioServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		HttpSession session = request.getSession(true);		
-//		String usuario = (String) session.getAttribute("userName");
-//		System.out.println(usuario);
-//		UsuarioEmpresarial userEMP = new UsuarioEmpresarial();
+		if (Utilidades.sesionInvalida(request)){
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			response.getWriter().flush();
+			response.getWriter().close();
+		}
+
 		if (validaPeticion(request)) {
-			String nrp = request.getParameter("userNRP").trim();
-			String correo = request.getParameter("userMail").trim();
+//			String nrp = request.getParameter("nrp").trim();
+			String correo = request.getParameter("mail").trim();
+			String passwordNew = request.getParameter("contrasenia");
 			//Inicializamos servicio
-			ResponseDTO respuesta = new ResponseDTO();
-			UsuarioWSProxy con = new UsuarioWSProxy();
-			con.setEndpoint("http://10.90.1.152/msrf-patron/services/usuario");
-			UsuarioWS usuariosWebService = con.getUsuarioWS();
-			respuesta = usuariosWebService.validarContacto(nrp.toUpperCase(), correo);
-			if ("02".equals(respuesta.getResponseCode())) {
-				ContactoDTO[] contactosDTO = new ContactoDTO[1];
-			for (ContactoDTO contacto:con.getContactos(nrp.toUpperCase())) {	
-				if (correo.equalsIgnoreCase(contacto.getCorreo().trim())) {					
-					contactosDTO[0] = contacto;
-					}
-				}
-			request.setAttribute("contactosDTO", contactosDTO);	
-			}
-			request.setAttribute("respuestaDTO", respuesta);
-			request.getRequestDispatcher("/jsp/piece/operacionesUsuarioDAO.jsp").forward(request, response);
-			
+			//Nos conectamos al servicio de control de MSRF patrón
+			ControlWSPortProxy con = new ControlWSPortProxy();
+			Properties prop = UtilPropiedades.propiedades();
+			AccesoDTO usuariosWebService = con.getAccessInfo(correo);
+			String passwordOld = usuariosWebService.getPass();		
+			UsuarioWSProxy conUno = new UsuarioWSProxy();
+			conUno.setEndpoint(prop.getProperty("msrf.endpoint"));
+			ResponseDTO cambiocontrasenia = conUno.cambiarPassword(correo, passwordOld, passwordNew);
+					
+			response.setStatus(HttpServletResponse.SC_OK);
+//			response.getWriter().write(new Gson().toJson(usuariosWebService));
+			response.getWriter().write(new Gson().toJson(cambiocontrasenia));			
+			response.getWriter().flush();
+			response.getWriter().close(); 
 		}else {
-			//Por si no envían el correo o el NRP, se van de puntitas
-			request.getRequestDispatcher("/jsp/piece/sinDatos.jsp").forward(request, response);
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.getWriter().flush();
+			response.getWriter().close();
 		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/jsp/valida.jsp").forward(request, response);
+		request.getRequestDispatcher("/jsp/Home.jsp").forward(request, response);
 	}
 	
 	/*
 	 * Para validar que el correo y el NRP vengan dentro de la petición
 	 */
 	private boolean validaPeticion(HttpServletRequest request) {
-			return  (!"".equalsIgnoreCase(request.getParameter("userMail")) 
-					&& 11 == request.getParameter("userNRP").length());		
+			return  (!"".equalsIgnoreCase(request.getParameter("userMail"))
+					&& !"".equalsIgnoreCase(request.getParameter("userNRP")));		
 	}
 }

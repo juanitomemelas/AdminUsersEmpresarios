@@ -8,7 +8,12 @@
 package mx.org.infonavit.msrf.patron.web.ws;
 
 public class RepresentanteDTO  implements java.io.Serializable {
-    private java.lang.String apMaterno;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3405616993461855720L;
+
+	private java.lang.String apMaterno;
 
     private java.lang.String apPaterno;
 

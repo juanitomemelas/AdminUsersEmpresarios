@@ -9,7 +9,12 @@ package mx.org.infonavit.msrf.patron.web.ws;
 
 public class UsuarioWSImplServiceLocator extends org.apache.axis.client.Service implements mx.org.infonavit.msrf.patron.web.ws.UsuarioWSImplService {
 
-    public UsuarioWSImplServiceLocator() {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4230228252123992960L;
+
+	public UsuarioWSImplServiceLocator() {
     }
 
 

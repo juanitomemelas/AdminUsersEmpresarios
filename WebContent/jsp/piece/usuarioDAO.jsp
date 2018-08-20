@@ -49,7 +49,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="tituloFormaModal">Acciones</h5>
+        <h3 class="modal-title text-center" id="tituloFormaModal">Acciones</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="cerrar">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -60,7 +60,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="button" id="modalBotonEnviar" class="btn btn-primary">Salvar Cambios</button>
       </div>
     </div>

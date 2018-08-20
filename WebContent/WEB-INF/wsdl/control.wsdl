@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="ControlWSService" targetNamespace="http://ws.web.patron.msrf.infonavit.org.mx/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.web.patron.msrf.infonavit.org.mx/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.web.patron.msrf.infonavit.org.mx/">
+  <xs:complexType name="wasResponseDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" type="xs:string"/>
+      <xs:element minOccurs="0" name="descripcion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resetPassDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:wasResponseDTO">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="accesoDTO">
+    <xs:complexContent>
+      <xs:extension base="tns:wasResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="pass" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="resetPassword" type="tns:resetPassword"/>
+  <xs:complexType name="resetPassword">
+    <xs:sequence>
+      <xs:element name="correo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="resetPasswordResponse" type="tns:resetPasswordResponse"/>
+  <xs:complexType name="resetPasswordResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="tns:resetPassDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAccessInfo" type="tns:getAccessInfo"/>
+  <xs:complexType name="getAccessInfo">
+    <xs:sequence>
+      <xs:element name="correo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="getAccessInfoResponse" type="tns:getAccessInfoResponse"/>
+  <xs:complexType name="getAccessInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="tns:accesoDTO"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>  </wsdl:types>
+  <wsdl:message name="resetPassword">
+    <wsdl:part element="tns:resetPassword" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="resetPasswordResponse">
+    <wsdl:part element="tns:resetPasswordResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccessInfo">
+    <wsdl:part element="tns:getAccessInfo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccessInfoResponse">
+    <wsdl:part element="tns:getAccessInfoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ControlWS">
+    <wsdl:operation name="resetPassword">
+      <wsdl:input message="tns:resetPassword" name="resetPassword">
+    </wsdl:input>
+      <wsdl:output message="tns:resetPasswordResponse" name="resetPasswordResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccessInfo">
+      <wsdl:input message="tns:getAccessInfo" name="getAccessInfo">
+    </wsdl:input>
+      <wsdl:output message="tns:getAccessInfoResponse" name="getAccessInfoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ControlWSServiceSoapBinding" type="tns:ControlWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="resetPassword">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="resetPassword">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="resetPasswordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccessInfo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAccessInfo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAccessInfoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ControlWSService">
+    <wsdl:port binding="tns:ControlWSServiceSoapBinding" name="ControlWSPort">
+<!--     des -->
+<!--       <soap:address location="http://10.90.0.155:9081/msrf-patron/services/control"/> -->
+<!--       pro -->
+      <soap:address location="http://10.90.1.152/msrf-patron/services/control"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

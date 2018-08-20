@@ -8,7 +8,12 @@
 package mx.org.infonavit.msrf.patron.web.ws;
 
 public class ResponseDTO  implements java.io.Serializable {
-    private java.lang.String responseCode;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6235799221357460859L;
+
+	private java.lang.String responseCode;
 
     private java.lang.String responseDescription;
 

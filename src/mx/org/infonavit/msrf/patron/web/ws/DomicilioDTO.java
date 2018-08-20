@@ -8,7 +8,12 @@
 package mx.org.infonavit.msrf.patron.web.ws;
 
 public class DomicilioDTO  implements java.io.Serializable {
-    private java.lang.String calleNumero;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 963820787423187493L;
+
+	private java.lang.String calleNumero;
 
     private java.lang.String colonia;
 
@@ -138,7 +143,6 @@ public class DomicilioDTO  implements java.io.Serializable {
     public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof DomicilioDTO)) return false;
         DomicilioDTO other = (DomicilioDTO) obj;
-        if (obj == null) return false;
         if (this == obj) return true;
         if (__equalsCalc != null) {
             return (__equalsCalc == obj);

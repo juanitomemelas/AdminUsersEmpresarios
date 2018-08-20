@@ -8,7 +8,12 @@
 package mx.org.infonavit.msrf.patron.web.ws;
 
 public class SistemaDTO  implements java.io.Serializable {
-    private java.lang.String descSistema;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4898701443325218540L;
+
+	private java.lang.String descSistema;
 
     private java.lang.Integer idSistema;
 

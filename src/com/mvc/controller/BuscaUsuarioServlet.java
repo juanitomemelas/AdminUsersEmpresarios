@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.HttpSession;
 //import com.mvc.bean.UsuarioEmpresarial;
-import mx.org.infonavit.msrf.patron.web.ws.ContactoDTO;
+//import mx.org.infonavit.msrf.patron.web.ws.ContactoDTO;
 import mx.org.infonavit.msrf.patron.web.ws.ResponseDTO;
 import mx.org.infonavit.msrf.patron.web.ws.UsuarioWS;
 import mx.org.infonavit.msrf.patron.web.ws.UsuarioWSProxy;

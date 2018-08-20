@@ -8,7 +8,12 @@
 package mx.org.infonavit.msrf.patron.web.ws;
 
 public class PerfilDTO  implements java.io.Serializable {
-    private java.lang.String descPerfil;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4871793855504440565L;
+
+	private java.lang.String descPerfil;
 
     private java.lang.Integer idPerfil;
 
