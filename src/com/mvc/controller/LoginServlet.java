@@ -18,12 +18,11 @@ public class LoginServlet extends HttpServlet {
 	public LoginServlet() {
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		super.doPost(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Enviamos al usuario a la página de inicio para que inicie sesión
+		request.getRequestDispatcher("index.jsp").forward(request, response);// forwarding the request
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Here username and password are the names which I have given in the input box
 		// in Login.jsp page. Here I am retrieving the values entered by the user and
 		// keeping in instance variables for further use.
@@ -39,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 		LoginDao loginDao = new LoginDao(); // creating object for LoginDao. This class contains main logic of the
 											// application.
 		String userValidate = loginDao.authenticateUser(loginBean); // Calling authenticateUser function
-		if (userValidate.equals("SUCCESS")) // If function returns success string then user will be rooted to Home page
+		if ("SUCCESS".equals(userValidate)) // If function returns success string then user will be rooted to Home page
 		{
 			HttpSession session =  request.getSession(true);
 			session.setAttribute("userName", userName); // with setAttribute() you can define a "key" and value pair so
@@ -53,5 +52,6 @@ public class LoginServlet extends HttpServlet {
 																// been stored in a errMessage key.
 			request.getRequestDispatcher("index.jsp").forward(request, response);// forwarding the request
 		}
-	}
+	
+	}	
 }

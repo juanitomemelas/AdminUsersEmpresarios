@@ -6,7 +6,7 @@
   <div class="panel-body">
   <div class="form-group">
     <label for="userNRP">NRP:</label>
-    <input type="text" class="form-control" id="userNRP" name="userNRP">
+    <input type="text" maxlength="11" class="form-control" id="userNRP" name="userNRP">
   </div>
   <div class="form-group">
     <label for="userMail">Correo electrónico</label>
@@ -25,17 +25,5 @@
 </div>
 
 <jsp:include flush="true" page="/res/jsp/footer.jsp">
-<jsp:param name="codigoJavascript" value="$(document).ready(function(){
-    $('#btnBuscar').click(function(){$(this).html('<i class=\"fa fa-spinner fa-spin\"></i> Cargando');
-    	$('#divResultados').html('<div class=\"centrar\"><div class=\"loader\"></div><br>Espere...</div>');
-        $.post('./BuscaUsuario',        {
-          userNRP:  $.trim($('#userNRP').val()),
-          userMail:$.trim($('#userMail').val())
-        },
-        function(data,status){
-	        $('#btnBuscar').html('Buscar');
-           $('#divResultados').html(data);
-        });
-    });
-});"/>
+<jsp:param name="codigoJavascript" value="$(document).ready(function(){$('#btnBuscar').click(function(){$(this).html('cargando ').append($('<i>',{class:'fa fa-spinner fa-spin'}));$('#divResultados').empty().append($('<div>',{class:'centrar'}).append($('<div>',{class:'loader'})));$.post('./BuscaUsuario',{userNRP:$.trim($('#userNRP').val()),userMail:$.trim($('#userMail').val())},function(data,status){$('#btnBuscar').html('Buscar');$('#divResultados').html(data);});});});"/>
 </jsp:include>

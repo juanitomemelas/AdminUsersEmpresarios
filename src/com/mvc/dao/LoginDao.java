@@ -1,10 +1,9 @@
-//LoginDao.java
 package com.mvc.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import com.mvc.bean.LoginBean;
 import com.mvc.util.DBConnection;
 
@@ -14,7 +13,7 @@ public class LoginDao {
 		String userName = loginBean.getUserName(); //Keeping user entered values in temporary variables.
 		String password = loginBean.getPassword();
 		Connection con = null;
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 		String userNameDB = "";
 		String passwordDB = "";
@@ -23,8 +22,11 @@ public class LoginDao {
 			if( null== con){//Quiere decir que la base esta abajo
 				return "Actualmente hay problemas con la base de datos";
 			}
-			statement = con.createStatement(); //Statement is used to write queries. Read more about it.
-			resultSet = statement.executeQuery("select user,pass from usuarioslogin"); //Here table name is users and userName,password are columns. fetching all the records and storing in a resultSet.
+			con.setAutoCommit(false);
+			statement = con.prepareStatement("select user,pass from usuarioslogin where user = ? and pass = ?");
+			statement.setString(1, userName);
+			statement.setString(2, password);
+			resultSet = statement.executeQuery(); //Here table name is users and userName,password are columns. fetching all the records and storing in a resultSet.
 			while(resultSet.next()) // Until next row is present otherwise it return false
 			{
 				userNameDB = resultSet.getString("user"); //fetch the values present in database

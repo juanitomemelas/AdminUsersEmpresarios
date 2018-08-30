@@ -1,11 +1,15 @@
 package com.mvc.controller;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.mvc.util.UtilPropiedades;
+import com.mvc.util.Utilidades;
 //import javax.servlet.http.HttpSession;
 //import com.mvc.bean.UsuarioEmpresarial;
 //import mx.org.infonavit.msrf.patron.web.ws.ContactoDTO;
@@ -24,17 +28,18 @@ public class BuscaUsuarioServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		HttpSession session = request.getSession(true);		
-//		String usuario = (String) session.getAttribute("userName");
-//		System.out.println(usuario); 
-//		UsuarioEmpresarial userEMP = new UsuarioEmpresarial();
+		if (Utilidades.sesionInvalida(request)){
+			//Enviamos al usuario a la página de inicio para que inicie sesión
+			request.getRequestDispatcher("index.jsp").forward(request, response);// forwarding the request
+		}
 		if (validaPeticion(request)) {
 			String nrp = request.getParameter("userNRP");
 			String correo = request.getParameter("userMail");
 			//Inicializamos servicio
 			ResponseDTO respuesta = new ResponseDTO();
 			UsuarioWSProxy con = new UsuarioWSProxy();
-			con.setEndpoint("http://10.90.1.152/msrf-patron/services/usuario");
+			Properties prop = UtilPropiedades.propiedades();
+			con.setEndpoint(prop.getProperty("msrf.endpoint"));
 			UsuarioWS usuariosWebService = con.getUsuarioWS();
 			respuesta = usuariosWebService.validarContacto(nrp.toUpperCase(), correo);
 			if ("02".equals(respuesta.getResponseCode()) || "04".equals(respuesta.getResponseCode())) {
@@ -49,7 +54,9 @@ public class BuscaUsuarioServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/jsp/valida.jsp").forward(request, response);
+		//Enviamos al usuario a la página de inicio para que inicie sesión
+		request.getRequestDispatcher("index.jsp").forward(request, response);// forwarding the request
+
 	}
 	
 	private boolean validaPeticion(HttpServletRequest request) {

@@ -8,18 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mx.org.infonavit.msrf.patron.web.ws.ControlWSPortProxy;
+import mx.org.infonavit.msrf.patron.web.ws.UsuarioWSProxy;
+
 import com.google.gson.Gson;
 import com.mvc.util.UtilPropiedades;
 import com.mvc.util.Utilidades;
 
-import mx.org.infonavit.msrf.patron.web.ws.ControlWSPortProxy;
-import mx.org.infonavit.msrf.patron.web.ws.UsuarioWSProxy;
+public class CargaEmpresarioServlet extends HttpServlet{
 
-public class OperacionesUsuarioServlet extends HttpServlet {
-	private static final long serialVersionUID = -4088643454962540966L;
+	private static final long serialVersionUID = 607152226081708103L;
 
-	public OperacionesUsuarioServlet() {		
-	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (Utilidades.sesionInvalida(request)){
@@ -38,7 +37,7 @@ public class OperacionesUsuarioServlet extends HttpServlet {
 			conUno.setEndpoint(prop.getProperty("msrf.endpoint"));
 					
 			response.setStatus(HttpServletResponse.SC_OK);
-			response.getWriter().write(new Gson().toJson(conUno.cambiarPassword(correo, con.getAccessInfo(correo).getPass(), passwordNew)));			
+//			response.getWriter().write(new Gson().toJson(conUno.cambiarPassword(correo, con.getAccessInfo(correo).getPass(), passwordNew)));			
 			response.getWriter().flush();
 			response.getWriter().close(); 
 		}else {

@@ -9,8 +9,8 @@
 	    </c:otherwise>
 	</c:choose>	      
       	<td><c:out value = "${contacto.getNombre()}"/> 
-		<c:out value = "${contacto.getApMaterno()}"/> 
-		<c:out value = "${contacto.getApPaterno()}"/></td>
+			<c:out value = "${contacto.getApMaterno()}"/> 
+			<c:out value = "${contacto.getApPaterno()}"/></td>
 		<td><c:out value = "${contacto.getCorreo()}"/></td>		
 		<td><c:out value = "${contacto.getEstatus()}"/></td>		
 		<td><c:out value = "${contacto.getNrp()}"/></td>

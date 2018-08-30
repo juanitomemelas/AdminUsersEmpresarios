@@ -102,9 +102,9 @@
   <wsdl:service name="ControlWSService">
     <wsdl:port binding="tns:ControlWSServiceSoapBinding" name="ControlWSPort">
 <!--     des -->
-<!--       <soap:address location="http://10.90.0.155:9081/msrf-patron/services/control"/> -->
+      <soap:address location="http://10.90.0.155:9081/msrf-patron/services/control"/>
 <!--       pro -->
-      <soap:address location="http://10.90.1.152/msrf-patron/services/control"/>
+<!--       <soap:address location="http://10.90.1.152/msrf-patron/services/control"/> -->
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

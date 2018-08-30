@@ -100,3 +100,11 @@
 .dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
+.margenTop-10 {margin-top: -10px;}
+
+.menuActivo{
+color: #FFF;
+    background-color: #3A1F33;
+}
+body { padding-bottom: 70px; }

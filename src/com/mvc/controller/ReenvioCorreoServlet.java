@@ -12,13 +12,19 @@ import com.google.gson.Gson;
 import com.mvc.util.UtilPropiedades;
 import com.mvc.util.Utilidades;
 
-import mx.org.infonavit.msrf.patron.web.ws.ControlWSPortProxy;
 import mx.org.infonavit.msrf.patron.web.ws.UsuarioWSProxy;
 
-public class OperacionesUsuarioServlet extends HttpServlet {
-	private static final long serialVersionUID = -4088643454962540966L;
-
-	public OperacionesUsuarioServlet() {		
+public class ReenvioCorreoServlet extends HttpServlet {
+	private static final long serialVersionUID = -4768379609279861474L;
+/**
+ * Clase que re envía el correo al usuario solicitado
+ * Utiliza el servicio web de recuperarPassword dentro del MSRF Patrón
+ * 
+ * Los parámetros se envían desde post usando AJAX y requiere el correo asociado al NRP
+ * 
+ * @author Jose Mahonry Lopez
+ */
+	public ReenvioCorreoServlet() {		
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,26 +32,23 @@ public class OperacionesUsuarioServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.getWriter().flush();
 			response.getWriter().close();
+			return;
 		}
+
 		if (validaPeticion(request)) {
 			String correo = request.getParameter("mail").trim();
-			String passwordNew = request.getParameter("contrasenia");
 			//Inicializamos servicio
 			//Nos conectamos al servicio de control de MSRF patrón
-			ControlWSPortProxy con = new ControlWSPortProxy();
 			Properties prop = UtilPropiedades.propiedades();
 			UsuarioWSProxy conUno = new UsuarioWSProxy();
 			conUno.setEndpoint(prop.getProperty("msrf.endpoint"));
-					
 			response.setStatus(HttpServletResponse.SC_OK);
-			response.getWriter().write(new Gson().toJson(conUno.cambiarPassword(correo, con.getAccessInfo(correo).getPass(), passwordNew)));			
-			response.getWriter().flush();
-			response.getWriter().close(); 
+			response.getWriter().write(new Gson().toJson(conUno.recuperarPassword(correo)));
 		}else {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-			response.getWriter().flush();
-			response.getWriter().close();
 		}
+		response.getWriter().flush();
+		response.getWriter().close(); 
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

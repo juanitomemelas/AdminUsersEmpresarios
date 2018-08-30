@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/jsp/piece/formaCargaEmpresario.jsp=ISO-8859-1
 encoding//src/mx/org/infonavit/msrf/patron/web/ws/AuthenticationException.java=UTF-8
 encoding//src/mx/org/infonavit/msrf/patron/web/ws/ContactoDTO.java=UTF-8
 encoding//src/mx/org/infonavit/msrf/patron/web/ws/DomicilioDTO.java=UTF-8

@@ -24,19 +24,23 @@ function acciones(accion,elemento){
 	case 1:
 		$('#tituloFormaModal').text('Cambiar contraseña');
 		creaForma(accion,elemento);
-//		$('#btnBuscar').click(function(){$(this).html('<i class=\"fa fa-spinner fa-spin\"></i> Cargando');
 		$('#modalBotonEnviar').html("Salvar Cambios").off("click").click(
 				function(){
 					if($('#contrasenia').val()==$('#contraseniaUno').val()){
 					$(this).html('<i class=\"fa fa-spinner fa-spin\"></i> Espere'); cambiaContrasenia($('#'+elemento).data('mail')); 
 				}else{
-					
+					alert('Las contraseñas no coinciden');
+					return false;					
 				}
 				});
 		break;
 	case 2:
 		$('#tituloFormaModal').text('Renvio de Contraseña');
 		creaForma(accion,elemento);
+		$('#modalBotonEnviar').html("Enviar").off("click").click(
+				function(){
+					$(this).html('<i class=\"fa fa-spinner fa-spin\"></i> Espere'); reenvioCorreo(); 
+				});
 		break;
 	case 3:
 		$('#tituloFormaModal').text('XXXXXXXXXXXXXXXXXXXXXX');
@@ -50,8 +54,6 @@ function acciones(accion,elemento){
 		$('#tituloFormaModal').text('Accion sin Definir');
 		creaForma(accion,elemento);
 	}
-	console.log($('#'+elemento).data('nrp'));
-	console.log($('#'+elemento).data('mail'));
 	$('#formaModal').modal('show');
 	//$(this).data("id", "321") para asgnar data internamente
 }
@@ -74,22 +76,20 @@ function creaForma(cual, elemento){
 					id:'contrasenia',
 					class:"form-control"}
 				)
-		);
-		
+		);		
 		form.append('<label for="contraseniaUno">Vuelva a ingresar la contraseña</label>');
 		form.append( 
 				$("<input>", 
 						{ type:'password',  
 					name:'contraseniaUno', 
 					id:'contraseniaUno',
-					class:"form-control"}
-				)
-		);
-		
-		form.append($("<input>",{type:"hidden",value:$("#"+elemento).data("nrp"),name:"nrp"})),form.append($("<input>",{type:"hidden",name:"mail",value:$("#"+elemento).data("mail")}));
+					class:"form-control"
+					})
+		);		
+
 		break;
 	case 2:
-		
+		form.append($("<div>",{class:"container"}).append($("<div>",{class:"row"}).append($("<div>",{class:"col"}).append("<p>Para enviar un correo al usuario con la contraseña que tiene actualmente,<br>de clic en el botón de enviar</p>"))));
 		break;
 	case 3:
 		
@@ -100,6 +100,8 @@ function creaForma(cual, elemento){
 	default:
 		$("#modalContenedorForma").empty();
 	}
+	//agregamos los campos del usuario y password en todos los procesos
+	form.append($("<input>",{type:"hidden",value:$("#"+elemento).data("nrp"),name:"nrp"})),form.append($("<input>",{type:"hidden",name:"mail",value:$("#"+elemento).data("mail")}));
 	$("#modalContenedorForma").empty().append(form);
 }
 
@@ -107,11 +109,19 @@ function cambiaContrasenia(correo){
 	$.post('./OperacionesUsuario',
 	$("#formaAccionesUsuario").serialize(),
       function(data,status){
-	  console.log(data);
 	  $("#modalContenedorForma").empty().append($("<div>",{class:"container"}).append($("<div>",{class:"row"}).append($("<div>",{class:"col"}).append("<p>Cambio de Contraseña exitoso</p>"))));
 	  $('#modalBotonEnviar').off().html('Cerrar').click(function(){$('#formaModal').modal('hide');});
 		
  
 	});
-	
 }
+
+function reenvioCorreo(){
+	$.post('./ReenvioCorreo',
+	$("#formaAccionesUsuario").serialize(),
+      function(data,status){
+	  $("#modalContenedorForma").empty().append($("<div>",{class:"container"}).append($("<div>",{class:"row"}).append($("<div>",{class:"col"}).append("<p>Reenvio de Contraseña exitoso</p>"))));
+	  $('#modalBotonEnviar').off().html('Cerrar').click(function(){$('#formaModal').modal('hide');});
+ 	});
+}
+
